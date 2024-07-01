@@ -1,8 +1,8 @@
-import { Key, useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function SearchBand() {
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [response, setResponse] = useState();
+  const [response, setResponse] = useState<any>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleClick = (event: { preventDefault: () => void }) => {
@@ -12,7 +12,7 @@ export default function SearchBand() {
     fetch(`https://api.srgssr.ch/mx3/v2/bands?query=${searchQuery}`, {
       headers: {
         accept: "application/json",
-        authorization: "Bearer qbFdIAMIK9gGA9f2vWKFWieIvpxb",
+        authorization: "Bearer II0z0AlUb59tahAHLUWlGsSX89UK",
       },
     })
       .then((r) => r.json())
@@ -20,7 +20,12 @@ export default function SearchBand() {
         console.log(data.response.bands);
         setResponse(data.response.bands);
         setIsLoading(false);
-      });
+      })
+      .catch((reason) => {
+        setIsLoading(false)
+        console.log(reason)
+        alert("There has been an Error!")
+      })
   };
 
   return (
@@ -48,11 +53,11 @@ export default function SearchBand() {
             </tr>
           </thead>
           <tbody>
-            {response.map((band, idx) => (
+            {response.map((band: any, idx: number) => (
               <tr key={idx}>
                 <td>{band.name}</td>
                 <td>
-                  {band.categories.map((category) =>
+                  {band.categories.map((category: any) =>
                     <p>{category.name}</p>
                   )}
                 </td>

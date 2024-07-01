@@ -1,6 +1,6 @@
 'use client'
 
-import SearchBand from "./components/SearchBand";
+import SearchBand from "./layout/SearchBand";
 
 export default function Home() {
   return (
