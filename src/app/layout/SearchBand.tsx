@@ -1,4 +1,5 @@
 import { useState } from "react";
+import style from "./SearchBand.module.css";
 
 export default function SearchBand() {
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -22,17 +23,19 @@ export default function SearchBand() {
         setIsLoading(false);
       })
       .catch((reason) => {
-        setIsLoading(false)
-        console.log(reason)
-        alert("There has been an Error!")
-      })
+        setIsLoading(false);
+        console.log(reason);
+        alert("There has been an Error!");
+      });
   };
 
   return (
     <div>
       <form onSubmit={handleClick}>
         <input type="text" onChange={(e) => setSearchQuery(e.target.value)} />
-        <button type="submit">Search</button>
+        <button type="submit" onClick={handleClick}>
+          Search
+        </button>
       </form>
 
       {isLoading && (
@@ -47,21 +50,21 @@ export default function SearchBand() {
         <table>
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Genre</th>
-              <th>Link</th>
+              <th className={style.tableHead}>Name</th>
+              <th className={style.tableHead}>Genre</th>
+              <th className={style.tableHead}>Link</th>
             </tr>
           </thead>
           <tbody>
             {response.map((band: any, idx: number) => (
               <tr key={idx}>
-                <td>{band.name}</td>
-                <td>
-                  {band.categories.map((category: any) =>
+                <td className={style.tableData}>{band.name}</td>
+                <td className={style.tableData}>
+                  {band.categories.map((category: any) => (
                     <p>{category.name}</p>
-                  )}
+                  ))}
                 </td>
-                <td>
+                <td className={style.tableData}>
                   <a href={band.permalink}>{band.permalink}</a>
                 </td>
               </tr>
