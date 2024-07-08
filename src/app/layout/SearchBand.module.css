@@ -1,3 +1,4 @@
-.tableData {
-    padding: 15px 15px 0 0;
+.response {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
 }

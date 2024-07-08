@@ -1,5 +1,6 @@
 import { useState } from "react";
 import style from "./SearchBand.module.css";
+import Card from "../components/Card";
 
 export default function SearchBand() {
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -13,7 +14,7 @@ export default function SearchBand() {
     fetch(`https://api.srgssr.ch/mx3/v2/bands?query=${searchQuery}`, {
       headers: {
         accept: "application/json",
-        authorization: "Bearer II0z0AlUb59tahAHLUWlGsSX89UK",
+        authorization: "Bearer 5sQrcAJAjECVi0apWyCx8Sdvl1Hk",
       },
     })
       .then((r) => r.json())
@@ -47,30 +48,11 @@ export default function SearchBand() {
         />
       )}
       {response && (
-        <table>
-          <thead>
-            <tr>
-              <th className={style.tableHead}>Name</th>
-              <th className={style.tableHead}>Genre</th>
-              <th className={style.tableHead}>Link</th>
-            </tr>
-          </thead>
-          <tbody>
-            {response.map((band: any, idx: number) => (
-              <tr key={idx}>
-                <td className={style.tableData}>{band.name}</td>
-                <td className={style.tableData}>
-                  {band.categories.map((category: any) => (
-                    <p>{category.name}</p>
-                  ))}
-                </td>
-                <td className={style.tableData}>
-                  <a href={band.permalink}>{band.permalink}</a>
-                </td>
-              </tr>
+          <div className={style.response}>
+            {response.map((band: any) => (
+              <Card image={band.image} title={band.name} category={band.categories} link={band.permalink}></Card>
             ))}
-          </tbody>
-        </table>
+          </div>
       )}
     </div>
   );
