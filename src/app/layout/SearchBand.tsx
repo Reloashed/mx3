@@ -14,7 +14,7 @@ export default function SearchBand() {
     fetch(`https://api.srgssr.ch/mx3/v2/bands?query=${searchQuery}`, {
       headers: {
         accept: "application/json",
-        authorization: "Bearer 5sQrcAJAjECVi0apWyCx8Sdvl1Hk",
+        authorization: "Bearer 6AEY5cPdzGPUwCNW5kSQQkSSXGkS",
       },
     })
       .then((r) => r.json())

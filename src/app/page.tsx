@@ -8,6 +8,8 @@ export default function Home() {
     <div>
       <h1>Nach Band suchen</h1>
       <SearchBand></SearchBand>
+      <h1>Gigs im Kanton Zürich</h1>
+      <Gigs></Gigs>
     </div>
   );
 }
