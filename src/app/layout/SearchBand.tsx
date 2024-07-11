@@ -4,11 +4,13 @@ import Card from "../components/Card";
 
 export default function SearchBand() {
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [response, setResponse] = useState<any>();
+  const [response, setResponse] = useState<any>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [empty, setEmpty] = useState<boolean>(false);
 
   const handleClick = (event: { preventDefault: () => void }) => {
     event.preventDefault();
+    setEmpty(false)
 
     setIsLoading(true);
     fetch(`https://api.srgssr.ch/mx3/v2/bands?query=${searchQuery}`, {
@@ -22,6 +24,7 @@ export default function SearchBand() {
         console.log(data.response.bands);
         setResponse(data.response.bands);
         setIsLoading(false);
+        testEmpty(data.response.bands)
       })
       .catch((reason) => {
         setIsLoading(false);
@@ -29,6 +32,14 @@ export default function SearchBand() {
         alert("There has been an Error!");
       });
   };
+
+  function testEmpty(response: string | any[]) {
+    if (response.length == 0) {
+      setEmpty(true)
+    } else {
+      setEmpty(false)
+    }
+  }
 
   return (
     <div>
@@ -54,6 +65,10 @@ export default function SearchBand() {
             ))}
           </div>
       )}
+      {empty ? 
+        <p>Nothing found.</p> :
+        <p></p>
+      }
     </div>
   );
 }
